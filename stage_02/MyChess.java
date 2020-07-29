@@ -1,22 +1,22 @@
-package Chess;
+
 
 import java.util.Scanner;
 
 
 public class MyChess {
-    // æ£‹ç›˜
+    // ÆåÅÌ
     private String[][] chessBoard;
-    // æ£‹ç›˜å¤§å°
+    // ÆåÅÌ´óĞ¡
     private final int SIZE = 17;
 
-    // æœ€è¿‘ä¸€æ¬¡ä¸‹æ£‹çš„ä½ç½®
+    // ×î½üÒ»´ÎÏÂÆåµÄÎ»ÖÃ
     private int x;
     private int y;
 
-    //æ ‡è®°å½“å‰æ˜¯ä¸æ˜¯é»‘æ£‹
+    //±ê¼Çµ±Ç°ÊÇ²»ÊÇºÚÆå
     private boolean isBlack = false;
 
-    // å¤šå°‘ä¸ªæ£‹å­è¿æ¥å°±èƒœåˆ©
+    // ¶àÉÙ¸öÆå×ÓÁ¬½Ó¾ÍÊ¤Àû
     private final int WIN_COUNT = 5;
 
     public static void main(String [] args){
@@ -25,17 +25,17 @@ public class MyChess {
         chess.render();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            //  ä¸‹æ£‹
-            System.out.println("è¯·è¾“å…¥åæ ‡ä¸‹æ£‹");
+            //  ÏÂÆå
+            System.out.println("ÇëÊäÈë×ø±êÏÂÆå");
             chess.player(scanner);
-            // åˆ·æ–°æ£‹ç›˜ï¼Œæ‰“å°
+            // Ë¢ĞÂÆåÅÌ£¬´òÓ¡
             chess.render();
-            // åˆ¤æ–­æ˜¯å¦äº”å­è¿ç ï¼Œåªè¦åˆ¤æ–­å½“å‰æ£‹å­çš„å‘¨å›´å°±å¯ä»¥äº†
+            // ÅĞ¶ÏÊÇ·ñÎå×ÓÁ¬Öé£¬Ö»ÒªÅĞ¶Ïµ±Ç°Æå×ÓµÄÖÜÎ§¾Í¿ÉÒÔÁË
             if(chess.check()) {
                 if (chess.isBlack) {
-                    System.out.println("ç™½æ£‹èƒœåˆ©");
+                    System.out.println("°×ÆåÊ¤Àû");
                 } else {
-                    System.out.println("é»‘æ£‹èƒœåˆ©");
+                    System.out.println("ºÚÆåÊ¤Àû");
                 }
                 break;
             }
@@ -43,18 +43,18 @@ public class MyChess {
     }
 
     /**
-     * éå†å½“å‰æ£‹å­å‘¨å›´æ˜¯å¦æ„æˆäº”å­è¿ç 
-     * x ï¼Œy ä¸ºå½“å‰æ£‹å­åæ ‡
+     * ±éÀúµ±Ç°Æå×ÓÖÜÎ§ÊÇ·ñ¹¹³ÉÎå×ÓÁ¬Öé
+     * x £¬y Îªµ±Ç°Æå×Ó×ø±ê
      * @return
      */
     private boolean check() {
-        // ç”¨äºå­˜å‚¨å½“å‰æœ‰å¤šå°‘ä¸ªæ£‹å­è¿çº¿
+        // ÓÃÓÚ´æ´¢µ±Ç°ÓĞ¶àÉÙ¸öÆå×ÓÁ¬Ïß
         int count = 1;
-        // å­˜å‚¨å½“å‰ä½ç½®æ˜¯ä»€ä¹ˆæ£‹å­
+        // ´æ´¢µ±Ç°Î»ÖÃÊÇÊ²Ã´Æå×Ó
         String currentCheck = chessBoard[x][y];
 
-        // éå†ä¸Šä¸‹æ–¹å‘
-        // éå†ä¸Šæ–¹
+        // ±éÀúÉÏÏÂ·½Ïò
+        // ±éÀúÉÏ·½
         for (int i = x - 1; i >= 0; i --) {
             if (chessBoard[i][y].equals(currentCheck)){
                 count ++;
@@ -65,7 +65,7 @@ public class MyChess {
         if (count >= WIN_COUNT) {
             return true;
         }
-        // éå†ä¸‹æ–¹
+        // ±éÀúÏÂ·½
         for (int i = x + 1; i < SIZE; i++) {
             if (chessBoard[i][y].equals(currentCheck)){
                 count ++;
@@ -73,16 +73,16 @@ public class MyChess {
                 break;
             }
         }
-        // å¦‚æœå¤§äº5ï¼Œè¿”å›èƒœåˆ©ï¼Œå¦‚æœå°äº5ï¼ŒæŠŠæ€»æ•°é‡ç½®ä¸º1
-        System.out.println("å½“å‰æ£‹å­ç«–ç›´æ–¹å‘ï¼š" + count);
+        // Èç¹û´óÓÚ5£¬·µ»ØÊ¤Àû£¬Èç¹ûĞ¡ÓÚ5£¬°Ñ×ÜÊıÖØÖÃÎª1
+        System.out.println("µ±Ç°Æå×ÓÊúÖ±·½Ïò£º" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
             count = 1;
         }
 
-        // éå†å·¦å³æ–¹å‘
-        // éå†å·¦æ–¹
+        // ±éÀú×óÓÒ·½Ïò
+        // ±éÀú×ó·½
         for (int i = y - 1; i >= 0; i --) {
             if (chessBoard[x][i].equals(currentCheck)){
                 count ++;
@@ -100,16 +100,16 @@ public class MyChess {
                 break;
             }
         }
-        // å¦‚æœå¤§äº5ï¼Œè¿”å›èƒœåˆ©ï¼Œå¦‚æœå°äº5ï¼ŒæŠŠæ€»æ•°é‡ç½®ä¸º1
-        System.out.println("å½“å‰æ£‹å­æ°´å¹³æ–¹å‘ï¼š" + count);
+        // Èç¹û´óÓÚ5£¬·µ»ØÊ¤Àû£¬Èç¹ûĞ¡ÓÚ5£¬°Ñ×ÜÊıÖØÖÃÎª1
+        System.out.println("µ±Ç°Æå×ÓË®Æ½·½Ïò£º" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
             count = 1;
         }
 
-        // éå† \ æ–¹å‘
-        // éå†å·¦ä¸Šæ–¹
+        // ±éÀú \ ·½Ïò
+        // ±éÀú×óÉÏ·½
         for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i --, j --) {
             if(chessBoard[i][j].equals(currentCheck)){
                 count ++;
@@ -117,7 +117,7 @@ public class MyChess {
                 break;
             }
         }
-        // éå†å³ä¸‹æ–¹
+        // ±éÀúÓÒÏÂ·½
         for (int i = x + 1, j = y + 1; i < SIZE && j < SIZE; i ++, j ++) {
             if(chessBoard[i][j].equals(currentCheck)){
                 count ++;
@@ -125,16 +125,16 @@ public class MyChess {
                 break;
             }
         }
-        // å¦‚æœå¤§äº5ï¼Œè¿”å›èƒœåˆ©ï¼Œå¦‚æœå°äº5ï¼ŒæŠŠæ€»æ•°é‡ç½®ä¸º1
-        System.out.println("å½“å‰æ£‹å­ \\ æ–¹å‘ï¼š" + count);
+        // Èç¹û´óÓÚ5£¬·µ»ØÊ¤Àû£¬Èç¹ûĞ¡ÓÚ5£¬°Ñ×ÜÊıÖØÖÃÎª1
+        System.out.println("µ±Ç°Æå×Ó \\ ·½Ïò£º" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
             count = 1;
         }
 
-        // éå† / æ–¹å‘
-        // éå† å³ä¸Šæ–¹
+        // ±éÀú / ·½Ïò
+        // ±éÀú ÓÒÉÏ·½
         for (int i = x - 1, j = y + 1; i >= 0 && j < SIZE; i --, j ++) {
             if(chessBoard[i][j].equals(currentCheck)){
                 count ++;
@@ -142,7 +142,7 @@ public class MyChess {
                 break;
             }
         }
-        // éå† å·¦ä¸‹æ–¹
+        // ±éÀú ×óÏÂ·½
         for (int i = x + 1, j = y - 1; i < SIZE && j >= 0; i ++, j --){
             if(chessBoard[i][j].equals(currentCheck)){
                 count ++;
@@ -150,8 +150,8 @@ public class MyChess {
                 break;
             }
         }
-        // å¦‚æœå¤§äº5ï¼Œè¿”å›èƒœåˆ©ï¼Œå¦‚æœå°äº5ï¼ŒæŠŠæ€»æ•°é‡ç½®ä¸º1
-        System.out.println("å½“å‰æ£‹å­ / æ–¹å‘ï¼š" + count);
+        // Èç¹û´óÓÚ5£¬·µ»ØÊ¤Àû£¬Èç¹ûĞ¡ÓÚ5£¬°Ñ×ÜÊıÖØÖÃÎª1
+        System.out.println("µ±Ç°Æå×Ó / ·½Ïò£º" + count);
         if (count >= WIN_COUNT) {
             return true;
         }
@@ -159,7 +159,7 @@ public class MyChess {
     }
 
     /**
-     * åˆä½¿åŒ–æ£‹ç›˜
+     * ³õÊ¹»¯ÆåÅÌ
      */
     private void init() {
         chessBoard = new String[SIZE][SIZE];
@@ -171,7 +171,7 @@ public class MyChess {
     }
 
     /**
-     * æ‰“å°æ£‹ç›˜
+     * ´òÓ¡ÆåÅÌ
      */
     private void render() {
         System.out.print("   ");
@@ -181,12 +181,12 @@ public class MyChess {
         System.out.println();
         for (int i = 0; i < SIZE; i++) {
             System.out.print( i  + "  ");
-            // åŠ é¢œè‰²ï¼Œé»‘æ£‹å’Œç™½æ£‹ç”¨ä¸åŒçš„é¢œè‰²æ‰“å°"â—""â—‹"
+            // ¼ÓÑÕÉ«£¬ºÚÆåºÍ°×ÆåÓÃ²»Í¬µÄÑÕÉ«´òÓ¡"¡ñ""¡ğ"
             for (int j = 0; j < SIZE; j++) {
-                if (chessBoard[i][j].equals("â—")) {
-                    System.out.print( chessBoard[i][j] + "    ");
-                } else if (chessBoard[i][j].equals("â—‹")){
-                    System.out.print(chessBoard[i][j]+ "    ");
+                if (chessBoard[i][j].equals("¡ñ")) {
+                    System.out.print( chessBoard[i][j] + "   ");
+                } else if (chessBoard[i][j].equals("¡ğ")){
+                    System.out.print(chessBoard[i][j]+ "   ");
                 } else {
                     System.out.print(chessBoard[i][j] + "    ");
                 }
@@ -196,47 +196,47 @@ public class MyChess {
     }
 
     /**
-     * ä¸‹æ£‹
+     * ÏÂÆå
      * @param scanner
      */
     private void player(Scanner scanner) {
-        // ç”¨æˆ·è¾“å…¥çš„å­—ç¬¦ä¸²
+        // ÓÃ»§ÊäÈëµÄ×Ö·û´®
         String inputStr = scanner.nextLine();
-        // å°†å­—ç¬¦ä¸²åˆ†å‰²ä¸ºæ•°ç»„
+        // ½«×Ö·û´®·Ö¸îÎªÊı×é
         String[] strArr = inputStr.split(",");
-        // åˆ¤æ–­æ•°ç»„å¤§å°æ˜¯å¦æ­£ç¡®
+        // ÅĞ¶ÏÊı×é´óĞ¡ÊÇ·ñÕıÈ·
         if (strArr.length != 2) {
-            System.out.println("è¯·è¾“å…¥æ­£ç¡®çš„åæ ‡!");
+            System.out.println("ÇëÊäÈëÕıÈ·µÄ×ø±ê!");
             player(scanner);
             return ;
         }
-        //åˆ¤æ–­è¾“å…¥çš„æ•°å­—æ˜¯å¦åˆæ³•
+        //ÅĞ¶ÏÊäÈëµÄÊı×ÖÊÇ·ñºÏ·¨
         try {
             x = Integer.parseInt(strArr[0]);
             y = Integer.parseInt(strArr[1]);
         } catch (NumberFormatException e) {
-            System.out.println("è¯·è¾“å…¥æ­£ç¡®çš„æ•°å­—");
+            System.out.println("ÇëÊäÈëÕıÈ·µÄÊı×Ö");
             player(scanner);
             return ;
         }
-        // åˆ¤æ–­è¾“å…¥çš„æ•°å­—æ˜¯å¦è¶…å‡ºåæ ‡
+        // ÅĞ¶ÏÊäÈëµÄÊı×ÖÊÇ·ñ³¬³ö×ø±ê
         if (x < SIZE && y < SIZE) {
-            // åˆ¤æ–­å½“å‰ä½ç½®æ˜¯å¦å·²ç»æœ‰æ£‹å­
+            // ÅĞ¶Ïµ±Ç°Î»ÖÃÊÇ·ñÒÑ¾­ÓĞÆå×Ó
             if (chessBoard[x][y].equals("+")){
-                // è¾“å…¥åˆæ³•ï¼Œå¼€å§‹ä¸‹æ£‹"â—""â—‹"
+                // ÊäÈëºÏ·¨£¬¿ªÊ¼ÏÂÆå"¡ñ""¡ğ"
                 if (isBlack) {
-                    chessBoard[x][y] = "â—‹";
+                    chessBoard[x][y] = "¡ğ";
                 } else {
-                    chessBoard[x][y] = "â—";
+                    chessBoard[x][y] = "¡ñ";
                 }
                 isBlack = !isBlack;
             } else {
-                System.out.println("å½“å‰ä½ç½®å·²æœ‰æ£‹å­");
+                System.out.println("µ±Ç°Î»ÖÃÒÑÓĞÆå×Ó");
                 player(scanner);
                 return ;
             }
         } else {
-            System.out.println("è¶…å‡ºåæ ‡èŒƒå›´");
+            System.out.println("³¬³ö×ø±ê·¶Î§");
             player(scanner);
             return ;
         }

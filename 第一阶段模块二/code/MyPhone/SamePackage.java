@@ -7,7 +7,7 @@ public abstract class SamePackage {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #main {
+            padding-top: 100px;
+            margin: 0 auto;
+            width: 360px;
+        }
+
+        img {
+            cursor: pointer;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+        }
+
+        .container {
+            background: linear-gradient(#d060fc, #241663);            
+            height: 1000px;
+        }
+
+        .cell {
+            border-radius: 10px;
+            width: 80px;
+            height: 80px;
+            box-shadow: 5px 5px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            overflow: hidden;
+            margin: 5px;
+        }
+
+        .cell-img {
+            position: absolute;
+        }
+
+        .back-img {
+            position: relative;
+        }
+
+        .back-hidden {
+            margin-left: -80px;
+            margin-top: -80px;
+            -webkit-animation: hidden 0.3s;
+        }
+
+        @-webkit-keyframes hidden {
+            0% {
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+
+            100% {
+                margin-left: -80px;
+                margin-top: -80px;
+            }
+        }
+
+        .back-show {
+            margin-left: 0px;
+            margin-top: 0px;
+            -webkit-animation: show 0.3s;
+        }
+
+        @-webkit-keyframes show {
+            0% {
+                margin-left: -80px;
+                margin-top: -80px;
+            }
+
+            100% {
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="main"></div>
+    </div>
+</body>
+<script>
+    let list = [1, 2, 3, 4, 5, 6, 7, 8];
+    list.push(...list);
+
+    // 记录上一次点击的图片
+    let preImg = null;
+    // 记录已经成功找出多少对图片
+    let count = 0;
+
+    for (let i = 0; i < list.length; i++) {
+        let r1 = ~~(Math.random() * list.length);
+        let r2 = ~~(Math.random() * list.length);
+        let item = list[r1];
+        list[r1] = list[r2];
+        list[r2] = item;
+    }
+    window.onload = function () {
+        let cellHtml = '';
+        for (let i = 0; i < list.length; i++) {
+            cellHtml +=
+                "<div class='cell'>" +
+                    "<img src='./img/image (" + list[i] + ").jpg' class='cell-img'></img>" +
+                    "<img src='./img/back.jpg' id='" + list[i] + "' class='back-img'></img>" +
+                "</div>"
+        }
+        document.getElementById('main').innerHTML = cellHtml;
+        
+        let imgList = document.getElementsByClassName('back-img');
+        for (let i = 0; i < imgList.length; i ++) {
+            let currentImg = imgList[i];
+            currentImg.onclick = function() {
+                let pre = preImg;
+                currentImg.className = 'back-img back-hidden';
+                if (pre) {
+                    console.log(pre.id, currentImg.id);
+                    if (pre.id != currentImg.id) {
+                        setTimeout(function() {
+                            pre.className = 'back-img back-show';
+                            currentImg.className = 'back-img back-show';
+                        }, 500);
+                    } else {
+                        if (++ count == 8) {
+                            setTimeout(function() {
+                                alert('你真厉害!!!');
+                            }, 300);
+                        }
+                    }
+                    preImg = null;
+                } else {
+                    preImg = currentImg;
+                }
+            }
+        }
+
+    }
+</script>
+
+</html>

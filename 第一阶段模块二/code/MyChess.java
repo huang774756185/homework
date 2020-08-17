@@ -1,4 +1,7 @@
-package Chess;
+package stage_02;
+
+
+
 
 import java.util.Scanner;
 
@@ -7,7 +10,7 @@ public class MyChess {
     // 棋盘
     private String[][] chessBoard;
     // 棋盘大小
-    private final int SIZE = 17;
+    private final int SIZE = 16;
 
     // 最近一次下棋的位置
     private int x;
@@ -74,7 +77,6 @@ public class MyChess {
             }
         }
         // 如果大于5，返回胜利，如果小于5，把总数重置为1
-        System.out.println("当前棋子竖直方向：" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
@@ -101,7 +103,6 @@ public class MyChess {
             }
         }
         // 如果大于5，返回胜利，如果小于5，把总数重置为1
-        System.out.println("当前棋子水平方向：" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
@@ -126,7 +127,6 @@ public class MyChess {
             }
         }
         // 如果大于5，返回胜利，如果小于5，把总数重置为1
-        System.out.println("当前棋子 \\ 方向：" + count);
         if (count >= WIN_COUNT) {
             return true;
         } else {
@@ -151,7 +151,6 @@ public class MyChess {
             }
         }
         // 如果大于5，返回胜利，如果小于5，把总数重置为1
-        System.out.println("当前棋子 / 方向：" + count);
         if (count >= WIN_COUNT) {
             return true;
         }
@@ -176,19 +175,20 @@ public class MyChess {
     private void render() {
         System.out.print("   ");
         for (int i = 0; i < SIZE; i++) {
-            System.out.print(i  + "    ");
+            System.out.print(Integer.toHexString(i)  + "  ");
         }
         System.out.println();
         for (int i = 0; i < SIZE; i++) {
-            System.out.print( i  + "  ");
+            System.out.print( Integer.toHexString(i)  + "  ");
+//            Integer.toHexString3
             // 加颜色，黑棋和白棋用不同的颜色打印"●""○"
             for (int j = 0; j < SIZE; j++) {
                 if (chessBoard[i][j].equals("●")) {
-                    System.out.print( chessBoard[i][j] + "    ");
+                    System.out.print( chessBoard[i][j] + "  ");
                 } else if (chessBoard[i][j].equals("○")){
-                    System.out.print(chessBoard[i][j]+ "    ");
+                    System.out.print(chessBoard[i][j]+ "  ");
                 } else {
-                    System.out.print(chessBoard[i][j] + "    ");
+                    System.out.print(chessBoard[i][j] + "  ");
                 }
             }
             System.out.println();
@@ -242,3 +242,4 @@ public class MyChess {
         }
     }
 }
+
